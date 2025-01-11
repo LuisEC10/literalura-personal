@@ -2,8 +2,12 @@ package com.luis.literalura.principal;
 
 import com.luis.literalura.model.DataLibro;
 import com.luis.literalura.model.Libro;
+import com.luis.literalura.repository.SerieRepository;
 import com.luis.literalura.service.ConsumoAPI;
 import com.luis.literalura.service.ConvierteDatos;
+import jakarta.persistence.Index;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +18,11 @@ public class Principal {
     private ConsumoAPI consumeAPI = new ConsumoAPI();
     private ConvierteDatos conversor = new ConvierteDatos();
     private final String URL_BASE = "https://gutendex.com/books/?search=";
-    private List<Libro> libros = new ArrayList<>();
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void showMenu(){
         System.out.println("Elija la opción a través de su número:");
@@ -34,7 +42,7 @@ public class Principal {
             sc.nextLine();
             switch (option){
                 case 1:
-                    getDataLibro();
+                    buscarLibroTitulo();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -43,21 +51,40 @@ public class Principal {
         }
     }
 
+    private void buscarLibroTitulo() {
+        try {
+            DataLibro data = getDataLibro();
+            Libro libro = new Libro(data);
+            try {
+                repository.save(libro);
+                System.out.println(libro.toString());
+            } catch (DataIntegrityViolationException e){
+
+                System.out.println("""
+                    \t################################################
+                    \t# El libro ya se encuentra en la base de datos #
+                    \t################################################
+                    """);
+            }
+        } catch (NullPointerException e){
+            System.out.println("""
+                    \t################################################
+                    \t# El libro no existe o no se ha encontrado     #
+                    \t################################################
+                    """);
+        }
+
+    }
+
     public DataLibro getDataLibro(){
         System.out.println("Escribe el nombre del libro que deseas buscar: ");
         var nameBook = sc.nextLine();
-        var json = consumeAPI.obtenerDatos(URL_BASE+nameBook.replace(" ","%20"));
-        System.out.println(json);
-        DataLibro data = conversor.getData(json,DataLibro.class);
-        Libro libro = new Libro(data);
-        libros.add(libro);
-        return data;
-    }
-
-    public void showBooks(){
-        for(Libro libro : libros){
-            System.out.println(libro.toString());;
+        try {
+            var json = consumeAPI.obtenerDatos(URL_BASE+nameBook.replace(" ","%20"));
+            DataLibro data = conversor.getData(json,DataLibro.class);
+            return data;
+        }catch (IndexOutOfBoundsException e){
+            return null;
         }
     }
-
 }

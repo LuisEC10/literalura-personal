@@ -1,12 +1,21 @@
 package com.luis.literalura.model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
+@Table(
+        name = "libros",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"title","authors"})
+)
 public class Libro {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private String authors;
     private String languages;
-
     public Libro(){
 
     }
@@ -21,20 +30,23 @@ public class Libro {
     @Override
     public String toString() {
         return
-                "titulo='" + title + '\'' +
-                        ", autores=" + authors +
-                        ", lenguaje=" + languages +
-                        ", Número de descargas=" + download_count;
+                "titulo:'" + title + '\'' +
+                        ", autor: " + authors +
+                        ", lenguaje: " + languages +
+                        ", Número de descargas = " + download_count;
     }
 
     private String tratamientoAuthor(List<Author> authors){
         String named;
         String lastname;
-        String fullName;
         Author first = authors.getFirst();
-        named = first.name().split(",")[1];
-        lastname = first.name().split(",")[0];
-        fullName = named + " " + lastname;
+        String fullName = first.name();
+
+        if(first.name().contains(",")){
+            named = first.name().split(",")[1];
+            lastname = first.name().split(",")[0];
+            fullName = named + " " + lastname;
+        }
         return fullName;
     }
 
@@ -42,6 +54,14 @@ public class Libro {
         String lan;
         lan = languages.getFirst();
         return lan;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
