@@ -43,13 +43,6 @@
 
 
 
-3 - Lista los autores que se encuentran vivos en un determinado año
-![image](https://github.com/user-attachments/assets/a41811bb-4b87-495f-83f4-8c0dba3447af)
-
-
-
-
-
 3 - Lista los autores que se han registrado en la base de datos
 ![image](https://github.com/user-attachments/assets/d364e529-9cf6-45cf-9581-54d2464ba4b5)
 
