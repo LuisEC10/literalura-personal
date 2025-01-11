@@ -37,4 +37,40 @@
 
 
 2 - Lista los libros que se han registrado en la base de datos
-3 - 
+![image](https://github.com/user-attachments/assets/3e32bc82-6c95-45c9-922d-a4a39a1c09fb)
+
+
+
+
+
+3 - Lista los autores que se encuentran vivos en un determinado año
+![image](https://github.com/user-attachments/assets/a41811bb-4b87-495f-83f4-8c0dba3447af)
+
+
+
+
+
+3 - Lista los autores que se han registrado en la base de datos
+![image](https://github.com/user-attachments/assets/d364e529-9cf6-45cf-9581-54d2464ba4b5)
+
+
+
+
+4 - Lista los autores que se encunetran vivos en un determinado año
+![image](https://github.com/user-attachments/assets/d948f652-04e7-43ff-ba03-b7d1b850e3ee)
+
+
+
+5 - Lista los libros de acuerdo a su lenguaje
+![image](https://github.com/user-attachments/assets/5b5e1a6d-50fd-4374-8fb1-c463fb130f90)
+
+
+
+
+![image](https://github.com/user-attachments/assets/98b664ee-5a7c-4ec4-a538-e8743923227f)
+
+
+
+0 - Cierra el programa
+
+
