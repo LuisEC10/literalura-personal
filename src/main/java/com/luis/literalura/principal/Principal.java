@@ -44,6 +44,15 @@ public class Principal {
                 case 1:
                     buscarLibroTitulo();
                     break;
+                case 2:
+                    showBooks();
+                    break;
+                case 3:
+                    showAuthors();
+                    break;
+                case 4:
+                    showByYear();
+                    break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
                     break;
@@ -86,5 +95,27 @@ public class Principal {
         }catch (IndexOutOfBoundsException e){
             return null;
         }
+    }
+
+    private void showBooks(){
+        List<Libro> libros = repository.findAll();
+        System.out.println("#####################################");
+        System.out.println("Libros registrados");
+        libros.forEach(l -> System.out.println("Libro: " + l.getTitle()));
+        System.out.println("#####################################\n");
+    }
+
+    private void showAuthors(){
+        List<Libro> libros = repository.findAll();
+        System.out.println("###########################################");
+        System.out.println("Autores registrados");
+        libros.forEach(l -> System.out.println("Autor: " + l.getAuthors() + " (" + l.getTitle() + ")"));
+        System.out.println("###########################################\n");
+    }
+
+    private void showByYear(){
+        int year;
+        System.out.println("Ingrese el año que desea para buscar al autor: ");
+        year = sc.nextInt();
     }
 }

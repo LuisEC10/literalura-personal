@@ -16,12 +16,13 @@ public class Libro {
     private String title;
     private String authors;
     private String languages;
+    private Integer download_count;
     public Libro(){
 
     }
 
     public Libro(DataLibro data){
-        this.title = data.title();
+        this.title = tratamientoTitulo(data.title());
         this.authors = tratamientoAuthor(data.authors());
         this.languages = tratamientoLanguage(data.languages());
         this.download_count = data.download_count();
@@ -34,6 +35,15 @@ public class Libro {
                         ", autor: " + authors +
                         ", lenguaje: " + languages +
                         ", Número de descargas = " + download_count;
+    }
+
+    private String tratamientoTitulo(String title){
+        String tit;
+        if(title.contains(";")){
+            tit = title.split(";")[0];
+            return tit;
+        }
+        return title;
     }
 
     private String tratamientoAuthor(List<Author> authors){
@@ -95,12 +105,6 @@ public class Libro {
     public void setDownload_count(Integer download_count) {
         this.download_count = download_count;
     }
-
-    private Integer download_count;
-
-
-
-
 }
 
 
