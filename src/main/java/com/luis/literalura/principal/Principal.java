@@ -1,9 +1,12 @@
 package com.luis.literalura.principal;
 
 import com.luis.literalura.model.DataLibro;
+import com.luis.literalura.model.Libro;
 import com.luis.literalura.service.ConsumoAPI;
 import com.luis.literalura.service.ConvierteDatos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
@@ -11,6 +14,7 @@ public class Principal {
     private ConsumoAPI consumeAPI = new ConsumoAPI();
     private ConvierteDatos conversor = new ConvierteDatos();
     private final String URL_BASE = "https://gutendex.com/books/?search=";
+    private List<Libro> libros = new ArrayList<>();
 
     public void showMenu(){
         System.out.println("Elija la opción a través de su número:");
@@ -45,8 +49,15 @@ public class Principal {
         var json = consumeAPI.obtenerDatos(URL_BASE+nameBook.replace(" ","%20"));
         System.out.println(json);
         DataLibro data = conversor.getData(json,DataLibro.class);
-
+        Libro libro = new Libro(data);
+        libros.add(libro);
         return data;
+    }
+
+    public void showBooks(){
+        for(Libro libro : libros){
+            System.out.println(libro.toString());;
+        }
     }
 
 }
