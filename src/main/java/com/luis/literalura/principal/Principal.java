@@ -51,7 +51,10 @@ public class Principal {
                     showAuthors();
                     break;
                 case 4:
-                    showByYear();
+                    showAuthorsByYear();
+                    break;
+                case 5:
+                    showBooksByLanguage();
                     break;
                 case 0:
                     System.out.println("Cerrando la aplicación...");
@@ -113,9 +116,37 @@ public class Principal {
         System.out.println("###########################################\n");
     }
 
-    private void showByYear(){
+    private void showAuthorsByYear(){
         int year;
         System.out.println("Ingrese el año que desea para buscar al autor: ");
         year = sc.nextInt();
+        List<Libro> autoresByYear = repository.librosPorYearDeAutor(year);
+        if(autoresByYear.isEmpty()){
+            System.out.println("""
+                        #####################################################################
+                        # No se encontraron autores que hayan vivido hasta el año ingresado #
+                        #####################################################################
+                    """);
+        }else {
+            System.out.println("###########################################");
+            System.out.println("Autores que vivieron hasta el año: " + year);
+            autoresByYear.forEach(e -> System.out.println("Autor: " + e.getAuthors() + " (Año de fallecimiento: " + e.getYearAuthor() + ")"));
+            System.out.println("###########################################");
+        }
+    }
+
+    private void showBooksByLanguage(){
+        String opcion;
+        System.out.println("""
+                    en : inglés
+                    es : español
+                """);
+        System.out.print("Escriba su opción: ");
+        opcion = sc.nextLine();
+        List<Libro> librosPorLenguaje = repository.librosByLanguage(opcion);
+        System.out.println("###########################################");
+        System.out.println("Libros en el lenguaje: " + opcion);
+        librosPorLenguaje.forEach(l -> System.out.println("Libro: " + l.getTitle()));
+        System.out.println("###########################################");
     }
 }

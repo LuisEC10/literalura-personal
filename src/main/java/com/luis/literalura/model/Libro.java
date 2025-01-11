@@ -15,6 +15,8 @@ public class Libro {
     private Long id;
     private String title;
     private String authors;
+    private Integer yearAuthor;
+    private Integer yearAuthorBirth;
     private String languages;
     private Integer download_count;
     public Libro(){
@@ -26,6 +28,8 @@ public class Libro {
         this.authors = tratamientoAuthor(data.authors());
         this.languages = tratamientoLanguage(data.languages());
         this.download_count = data.download_count();
+        this.yearAuthor = data.authors().getFirst().yearAuthor();
+        this.yearAuthorBirth = data.authors().getFirst().yearAuthorBirth();
     }
 
     @Override
@@ -104,6 +108,14 @@ public class Libro {
 
     public void setDownload_count(Integer download_count) {
         this.download_count = download_count;
+    }
+
+    public Integer getYearAuthor() {
+        return yearAuthor;
+    }
+
+    public void setYearAuthor(Integer yearAuthor) {
+        this.yearAuthor = yearAuthor;
     }
 }
 
