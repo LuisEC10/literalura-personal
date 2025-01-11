@@ -104,7 +104,7 @@ public class Principal {
         List<Libro> libros = repository.findAll();
         System.out.println("#####################################");
         System.out.println("Libros registrados");
-        libros.forEach(l -> System.out.println("Libro: " + l.getTitle()));
+        libros.forEach(l -> System.out.println("Libro: " + l.getTitle() + ", Autor: " + l.getAuthors() + ", Descargas: " + l.getDownload_count()));
         System.out.println("#####################################\n");
     }
 
